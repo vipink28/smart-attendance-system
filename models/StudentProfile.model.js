@@ -27,6 +27,27 @@ const StudentProfile = {
         );
 
         return rows[0];
+    },
+    async update(userId, data) {
+        await db.query(
+            `UPDATE student_profiles
+         SET roll_number = ?, phone = ?, dob = ?, admission_year = ?
+         WHERE user_id = ?`,
+            [
+                data.rollNumber,
+                data.phone,
+                data.dob,
+                data.admissionYear,
+                userId
+            ]
+        );
+    },
+
+    async delete(userId) {
+        await db.query(
+            "DELETE FROM student_profiles WHERE user_id = ?",
+            [userId]
+        );
     }
 
 };

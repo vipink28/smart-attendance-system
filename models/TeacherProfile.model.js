@@ -25,6 +25,26 @@ const TeacherProfile = {
         );
 
         return rows[0];
+    },
+    async update(userId, data) {
+        await db.query(
+            `UPDATE teacher_profiles
+         SET phone = ?, dob = ?, qualification = ?
+         WHERE user_id = ?`,
+            [
+                data.phone,
+                data.dob,
+                data.qualification,
+                userId
+            ]
+        );
+    },
+
+    async delete(userId) {
+        await db.query(
+            "DELETE FROM teacher_profiles WHERE user_id = ?",
+            [userId]
+        );
     }
 
 };

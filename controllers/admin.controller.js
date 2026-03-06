@@ -46,4 +46,116 @@ exports.createTeacher = async (req, res) => {
         message: "Teacher created successfully",
         teacherId: userId
     });
+
+
+};
+
+// GET ALL STUDENTS
+exports.getStudents = async (req, res) => {
+
+    const students = await User.findByRole("student");
+
+    res.json(students);
+};
+
+
+// GET SINGLE STUDENT
+exports.getStudent = async (req, res) => {
+
+    const user = await User.findById(req.params.id);
+
+    const profile = await StudentProfile.findByUserId(req.params.id);
+
+    res.json({
+        ...user,
+        profile
+    });
+};
+
+
+// UPDATE STUDENT
+exports.updateStudent = async (req, res) => {
+
+    const userId = req.params.id;
+
+    await User.updateUser(userId, {
+        username: req.body.username,
+        email: req.body.email
+    });
+
+    await StudentProfile.update(userId, {
+        rollNumber: req.body.rollNumber,
+        phone: req.body.phone,
+        dob: req.body.dob,
+        admissionYear: req.body.admissionYear
+    });
+
+    res.json({ message: "Student updated" });
+};
+
+
+// DELETE STUDENT
+exports.deleteStudent = async (req, res) => {
+
+    const userId = req.params.id;
+
+    await StudentProfile.delete(userId);
+    await User.deleteUser(userId);
+
+    res.json({ message: "Student deleted" });
+};
+
+
+// GET ALL TEACHERS
+exports.getTeachers = async (req, res) => {
+
+    const teachers = await User.findByRole("teacher");
+
+    res.json(teachers);
+};
+
+
+// GET SINGLE TEACHER
+exports.getTeacher = async (req, res) => {
+
+    const user = await User.findById(req.params.id);
+
+    const profile = await TeacherProfile.findByUserId(req.params.id);
+
+    res.json({
+        ...user,
+        profile
+    });
+};
+
+
+// UPDATE TEACHER
+exports.updateTeacher = async (req, res) => {
+
+    const userId = req.params.id;
+
+    await User.updateUser(userId, {
+        username: req.body.username,
+        email: req.body.email
+    });
+
+    await TeacherProfile.update(userId, {
+        phone: req.body.phone,
+        dob: req.body.dob,
+        qualification: req.body.qualification
+    });
+
+    res.json({ message: "Teacher updated" });
+};
+
+
+// DELETE TEACHER
+exports.deleteTeacher = async (req, res) => {
+
+    const userId = req.params.id;
+
+    await TeacherProfile.delete(userId);
+    await User.deleteUser(userId);
+
+    res.json({ message: "Teacher deleted" });
 };

@@ -24,12 +24,37 @@ const User = {
         return rows[0];
     },
 
+
     async findById(id) {
         const [rows] = await db.query(
             "SELECT id, username, email, role FROM users WHERE id = ?",
             [id]
         );
         return rows[0];
+    },
+
+    async findByRole(role) {
+        const [rows] = await db.query(
+            "SELECT id, username, email, role FROM users WHERE role = ?",
+            [role]
+        );
+        return rows;
+    },
+
+    async updateUser(id, data) {
+        await db.query(
+            `UPDATE users 
+         SET username = ?, email = ?
+         WHERE id = ?`,
+            [data.username, data.email, id]
+        );
+    },
+
+    async deleteUser(id) {
+        await db.query(
+            "DELETE FROM users WHERE id = ?",
+            [id]
+        );
     },
 
     async comparePassword(inputPassword, hashedPassword) {
