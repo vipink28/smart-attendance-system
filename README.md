@@ -12,6 +12,7 @@ The system allows administrators to manage teachers, students, and classes, whil
 * MySQL
 * JWT Authentication
 * bcrypt (Password Hashing)
+* ExcelJs
 
 ---
 
