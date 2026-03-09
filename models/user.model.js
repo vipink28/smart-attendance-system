@@ -59,6 +59,37 @@ const User = {
 
     async comparePassword(inputPassword, hashedPassword) {
         return bcrypt.compare(inputPassword, hashedPassword);
+    },
+    async getAdminStats() {
+        const [[students]] = await db.query(
+            "SELECT COUNT(*) AS total_students FROM users WHERE role='student'"
+        );
+
+        const [[teachers]] = await db.query(
+            "SELECT COUNT(*) AS total_teachers FROM users WHERE role='teacher'"
+        );
+
+        const [[classes]] = await db.query(
+            "SELECT COUNT(*) AS total_classes FROM classes"
+        );
+
+        const [[sessions]] = await db.query(
+            "SELECT COUNT(*) AS total_sessions FROM sessions"
+        );
+
+        const [[todayAttendance]] = await db.query(
+            `SELECT COUNT(*) AS today_attendance
+         FROM attendance
+         WHERE DATE(created_at) = CURDATE()`
+        );
+
+        return {
+            students: students.total_students,
+            teachers: teachers.total_teachers,
+            classes: classes.total_classes,
+            sessions: sessions.total_sessions,
+            todayAttendance: todayAttendance.today_attendance
+        };
     }
 };
 

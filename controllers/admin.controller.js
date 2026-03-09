@@ -159,3 +159,10 @@ exports.deleteTeacher = async (req, res) => {
 
     res.json({ message: "Teacher deleted" });
 };
+
+exports.getDashboardStats = async (req, res) => {
+
+    const stats = await User.getAdminStats();
+
+    res.json(stats);
+};

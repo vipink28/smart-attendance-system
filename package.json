@@ -15,9 +15,12 @@
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "exceljs": "^4.4.0",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.18.2",
-    "nodemon": "^3.1.11"
+    "node-cron": "^4.2.1",
+    "nodemon": "^3.1.11",
+    "qrcode": "^1.5.4"
   }
 }

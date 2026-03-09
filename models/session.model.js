@@ -35,6 +35,23 @@ const Session = {
             `UPDATE sessions SET is_active = false WHERE id = ?`,
             [sessionId]
         );
+    },
+    async findByClass(classId) {
+        const [rows] = await db.query(
+            `SELECT * FROM sessions WHERE class_id = ?`,
+            [classId]
+        );
+
+        return rows;
+    },
+
+    async findByTeacher(teacherId) {
+        const [rows] = await db.query(
+            `SELECT * FROM sessions WHERE teacher_id = ?`,
+            [teacherId]
+        );
+
+        return rows;
     }
 
 };

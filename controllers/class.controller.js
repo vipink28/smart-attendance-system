@@ -41,3 +41,18 @@ exports.getAllClasses = async (req, res) => {
 
     res.json(classes);
 };
+
+exports.getClassStudents = async (req, res) => {
+
+    const students = await Class.getStudents(req.params.classId);
+
+    res.json(students);
+};
+
+
+exports.getMyClasses = async (req, res) => {
+
+    const classes = await Class.getTeacherClasses(req.user.id);
+
+    res.json(classes);
+};

@@ -51,6 +51,27 @@ const Class = {
             [classId, studentId]
         );
         return rows.length > 0;
+    },
+    async getStudents(classId) {
+        const [rows] = await db.query(
+            `SELECT u.id, u.username
+         FROM class_students cs
+         JOIN users u ON cs.student_id = u.id
+         WHERE cs.class_id = ?`,
+            [classId]
+        );
+
+        return rows;
+    },
+
+    async getTeacherClasses(teacherId) {
+        const [rows] = await db.query(
+            `SELECT * FROM classes
+         WHERE teacher_id = ?`,
+            [teacherId]
+        );
+
+        return rows;
     }
 };
 

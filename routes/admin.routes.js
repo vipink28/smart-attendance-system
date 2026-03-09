@@ -10,7 +10,8 @@ const {
     getTeachers,
     getTeacher,
     updateTeacher,
-    deleteTeacher
+    deleteTeacher,
+    getDashboardStats
 } = require("../controllers/admin.controller");
 
 const { protect } = require("../middlewares/auth.middleware");
@@ -28,5 +29,12 @@ router.get("/teachers", protect, authorize("admin"), getTeachers);
 router.get("/teachers/:id", protect, authorize("admin"), getTeacher);
 router.put("/teachers/:id", protect, authorize("admin"), updateTeacher);
 router.delete("/teachers/:id", protect, authorize("admin"), deleteTeacher);
+
+router.get(
+    "/dashboard-stats",
+    protect,
+    authorize("admin"),
+    getDashboardStats
+);
 
 module.exports = router;
